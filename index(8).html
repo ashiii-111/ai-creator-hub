@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Creator Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #EAE5DA;
+    --ink: #1C2321;
+    --ink-soft: #4A524C;
+    --accent: #E4562E;
+    --teal: #33564D;
+    --gold: #C79A2E;
+    --line: rgba(28,35,33,0.16);
+    --card: #F4F0E6;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Space Grotesk', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3, .serif{
+    font-family:'Instrument Serif', serif;
+    font-weight:400;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(234,229,218,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 32px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:20px;
+    font-weight:600;
+    text-decoration:none;
+  }
+  .logo-mark{
+    width:26px;height:26px;
+    border-radius:3px;
+    background:var(--accent);
+    position:relative;
+    flex:none;
+  }
+  .logo-mark::after{
+    content:"";
+    position:absolute;
+    inset:6px;
+    border-radius:2px;
+    background:var(--paper);
+  }
+  .navlinks{
+    display:flex;
+    gap:34px;
+    font-size:15px;
+  }
+  .navlinks a{
+    text-decoration:none;
+    color:var(--ink-soft);
+    transition:color .15s ease;
+  }
+  .navlinks a:hover{color:var(--ink);}
+  .nav-cta{
+    font-size:15px;
+    text-decoration:none;
+    background:var(--ink);
+    color:var(--paper);
+    padding:10px 18px;
+    border-radius:3px;
+  }
+  .navlinks, .nav-cta{display:flex;}
+  @media (max-width:760px){
+    .navlinks{display:none;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:88px 32px 60px;
+    max-width:1180px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.3fr 0.9fr;
+    gap:60px;
+    align-items:end;
+  }
+  .hero-kicker{
+    font-size:15px;
+    color:var(--teal);
+    margin-bottom:18px;
+    max-width:30ch;
+  }
+  .hero h1{
+    font-size:clamp(44px, 6.2vw, 84px);
+    line-height:0.98;
+    margin:0 0 26px;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--accent);
+  }
+  .hero-sub{
+    font-size:17px;
+    color:var(--ink-soft);
+    max-width:46ch;
+    line-height:1.6;
+    margin:0 0 32px;
+  }
+  .hero-actions{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    text-decoration:none;
+    padding:14px 24px;
+    border-radius:3px;
+    font-size:15px;
+    font-weight:500;
+    display:inline-block;
+  }
+  .btn-primary{background:var(--ink); color:var(--paper);}
+  .btn-secondary{border:1px solid var(--line); color:var(--ink);}
+
+  .hero-panel{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:26px;
+    font-size:14px;
+  }
+  .hero-panel-title{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-bottom:16px;
+  }
+  .hero-stat{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding:12px 0;
+    border-top:1px solid var(--line);
+  }
+  .hero-stat:first-of-type{border-top:none;}
+  .hero-stat .n{
+    font-family:'Instrument Serif', serif;
+    font-size:30px;
+  }
+  .hero-stat .l{color:var(--ink-soft);}
+
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr; padding-top:56px;}
+  }
+
+  /* ---------- Bench (categories) ---------- */
+  .bench{
+    padding:70px 32px 30px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom:38px;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+  .section-head h2{
+    font-size:clamp(30px,3.4vw,44px);
+    margin:0;
+  }
+  .section-head p{
+    color:var(--ink-soft);
+    max-width:36ch;
+    font-size:15px;
+    margin:0;
+  }
+  .modules{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .module{
+    background:var(--card);
+    padding:30px 26px;
+    min-height:190px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    transition:background .15s ease;
+  }
+  .module:hover{background:#EFE9DB;}
+  .module-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+  }
+  .module-dot{
+    width:11px;height:11px;
+    border-radius:50%;
+    flex:none;
+    margin-top:5px;
+  }
+  .module h3{
+    font-size:24px;
+    margin:0 0 8px;
+  }
+  .module p{
+    font-size:14px;
+    color:var(--ink-soft);
+    margin:0;
+    line-height:1.5;
+  }
+  .module-count{
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  @media (max-width:900px){
+    .modules{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:600px){
+    .modules{grid-template-columns:1fr;}
+  }
+
+  /* ---------- Featured tools ---------- */
+  .featured{
+    padding:80px 32px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .tool-list{
+    border-top:1px solid var(--line);
+  }
+  .tool-row{
+    display:grid;
+    grid-template-columns:1fr 2fr 1fr auto;
+    gap:24px;
+    align-items:center;
+    padding:24px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .tool-row .tag{
+    font-size:12px;
+    color:var(--teal);
+    background:rgba(51,86,77,0.09);
+    padding:5px 10px;
+    border-radius:20px;
+    justify-self:start;
+  }
+  .tool-row h4{
+    font-family:'Instrument Serif', serif;
+    font-weight:400;
+    font-size:22px;
+    margin:0 0 4px;
+  }
+  .tool-row .desc{
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+  .tool-row .used{
+    font-size:13px;
+    color:var(--ink-soft);
+    text-align:right;
+  }
+  .tool-row .go{
+    text-decoration:none;
+    font-size:14px;
+    border:1px solid var(--line);
+    padding:8px 16px;
+    border-radius:3px;
+    white-space:nowrap;
+  }
+  @media (max-width:800px){
+    .tool-row{grid-template-columns:1fr; gap:8px;}
+    .tool-row .used, .tool-row .go{justify-self:start; text-align:left;}
+  }
+
+  /* ---------- How it works ---------- */
+  .how{
+    padding:70px 32px 90px;
+    max-width:1180px;
+    margin:0 auto;
+    background:var(--teal);
+    color:var(--paper);
+    border-radius:8px;
+    margin-bottom:70px;
+  }
+  .how-inner{max-width:1180px; margin:0 auto; padding: 60px 40px;}
+  .how h2{
+    font-size:clamp(28px,3.2vw,40px);
+    margin:0 0 40px;
+    color:var(--paper);
+  }
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:36px;
+  }
+  .step{
+    border-top:1px solid rgba(234,229,218,0.3);
+    padding-top:18px;
+  }
+  .step .num{
+    font-family:'Instrument Serif', serif;
+    font-size:15px;
+    color:var(--gold);
+    display:block;
+    margin-bottom:10px;
+  }
+  .step h3{
+    font-size:22px;
+    color:var(--paper);
+    margin:0 0 8px;
+  }
+  .step p{
+    font-size:14px;
+    color:rgba(234,229,218,0.75);
+    line-height:1.6;
+    margin:0;
+  }
+  @media (max-width:800px){
+    .steps{grid-template-columns:1fr;}
+    .how-inner{padding:44px 26px;}
+  }
+
+  /* ---------- Voices ---------- */
+  .voices{
+    padding:0 32px 90px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .voice-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+  }
+  .voice{
+    padding:26px 0 0;
+    border-top:1px solid var(--line);
+  }
+  .voice p.quote{
+    font-family:'Instrument Serif', serif;
+    font-size:21px;
+    line-height:1.35;
+    margin:0 0 18px;
+  }
+  .voice .who{
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  @media (max-width:800px){
+    .voice-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- CTA ---------- */
+  .cta{
+    padding:90px 32px 100px;
+    max-width:1180px;
+    margin:0 auto;
+    text-align:left;
+  }
+  .cta h2{
+    font-size:clamp(36px,6vw,64px);
+    max-width:16ch;
+    margin:0 0 30px;
+  }
+  .cta-actions{display:flex; gap:14px; flex-wrap:wrap;}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:34px 32px;
+  }
+  .foot-inner{
+    max-width:1180px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:14px;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .foot-inner a{text-decoration:none; margin-left:18px; color:var(--ink-soft);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#" class="logo"><span class="logo-mark"></span>AI Creator Hub</a>
+    <div class="navlinks">
+      <a href="#bench">Tools</a>
+      <a href="#featured">Featured</a>
+      <a href="#how">How it works</a>
+      <a href="#voices">Creators</a>
+    </div>
+    <a href="#" class="nav-cta">Browse the hub</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <p class="hero-kicker">A working directory of AI tools for people who make things</p>
+    <h1>Find the right tool<br>before you <em>lose the idea</em>.</h1>
+    <p class="hero-sub">AI Creator Hub sorts hundreds of AI tools by what you're actually trying to do — cut a video, write a script, clean up a voiceover — so you spend less time searching and more time making.</p>
+    <div class="hero-actions">
+      <a href="#bench" class="btn btn-primary">Browse tools</a>
+      <a href="#featured" class="btn btn-secondary">See what's trending</a>
+    </div>
+  </div>
+  <div class="hero-panel">
+    <div class="hero-panel-title">Right now on the hub</div>
+    <div class="hero-stat"><span class="l">Tools listed</span><span class="n">412</span></div>
+    <div class="hero-stat"><span class="l">Added this week</span><span class="n">9</span></div>
+    <div class="hero-stat"><span class="l">Creator reviews</span><span class="n">6,204</span></div>
+  </div>
+</section>
+
+<section class="bench" id="bench">
+  <div class="section-head">
+    <h2>Sorted by what you're making</h2>
+    <p>Six workbenches, each holding the tools that actually get used at that stage of a project.</p>
+  </div>
+  <div class="modules">
+    <div class="module">
+      <div class="module-top">
+        <h3>Video</h3>
+        <span class="module-dot" style="background:var(--accent)"></span>
+      </div>
+      <div>
+        <p>Auto-cut, B-roll matching, subtitle generation, and voice cloning for editors.</p>
+        <div class="module-count" style="margin-top:14px;">88 tools</div>
+      </div>
+    </div>
+    <div class="module">
+      <div class="module-top">
+        <h3>Writing</h3>
+        <span class="module-dot" style="background:var(--teal)"></span>
+      </div>
+      <div>
+        <p>Scripts, hooks, captions, and long-form drafts that sound like you wrote them.</p>
+        <div class="module-count" style="margin-top:14px;">76 tools</div>
+      </div>
+    </div>
+    <div class="module">
+      <div class="module-top">
+        <h3>Image</h3>
+        <span class="module-dot" style="background:var(--gold)"></span>
+      </div>
+      <div>
+        <p>Thumbnails, cover art, product shots, and on-brand generation at scale.</p>
+        <div class="module-count" style="margin-top:14px;">94 tools</div>
+      </div>
+    </div>
+    <div class="module">
+      <div class="module-top">
+        <h3>Audio</h3>
+        <span class="module-dot" style="background:var(--accent)"></span>
+      </div>
+      <div>
+        <p>Noise cleanup, mastering, dubbing, and text-to-speech that doesn't sound robotic.</p>
+        <div class="module-count" style="margin-top:14px;">57 tools</div>
+      </div>
+    </div>
+    <div class="module">
+      <div class="module-top">
+        <h3>Music</h3>
+        <span class="module-dot" style="background:var(--teal)"></span>
+      </div>
+      <div>
+        <p>Underscore, stingers, and full tracks licensed for creator use.</p>
+        <div class="module-count" style="margin-top:14px;">41 tools</div>
+      </div>
+    </div>
+    <div class="module">
+      <div class="module-top">
+        <h3>Workflow</h3>
+        <span class="module-dot" style="background:var(--gold)"></span>
+      </div>
+      <div>
+        <p>Scheduling, repurposing, and analytics tools that run in the background.</p>
+        <div class="module-count" style="margin-top:14px;">56 tools</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="featured" id="featured">
+  <div class="section-head">
+    <h2>Trending this week</h2>
+    <p>Ranked by how often creators actually open them, not by who paid for placement.</p>
+  </div>
+  <div class="tool-list">
+    <div class="tool-row">
+      <span class="tag">Video</span>
+      <div>
+        <h4>Clipwright</h4>
+        <div class="desc">Finds the three most-quotable moments in a long recording and cuts them to vertical.</div>
+      </div>
+      <div class="used">Used by 12,400 creators</div>
+      <a href="#" class="go">Open</a>
+    </div>
+    <div class="tool-row">
+      <span class="tag">Writing</span>
+      <div>
+        <h4>Draftline</h4>
+        <div class="desc">Turns a rough voice memo into a structured script, in your own recurring tone.</div>
+      </div>
+      <div class="used">Used by 9,850 creators</div>
+      <a href="#" class="go">Open</a>
+    </div>
+    <div class="tool-row">
+      <span class="tag">Image</span>
+      <div>
+        <h4>Coverframe</h4>
+        <div class="desc">Generates ten thumbnail directions from one still frame and a title.</div>
+      </div>
+      <div class="used">Used by 8,120 creators</div>
+      <a href="#" class="go">Open</a>
+    </div>
+    <div class="tool-row">
+      <span class="tag">Audio</span>
+      <div>
+        <h4>Cleanroom</h4>
+        <div class="desc">Strips room echo and hum from a phone recording without flattening the voice.</div>
+      </div>
+      <div class="used">Used by 6,730 creators</div>
+      <a href="#" class="go">Open</a>
+    </div>
+    <div class="tool-row">
+      <span class="tag">Workflow</span>
+      <div>
+        <h4>Reprint</h4>
+        <div class="desc">Watches one long-form upload and drafts five shorter cuts for other platforms.</div>
+      </div>
+      <div class="used">Used by 5,290 creators</div>
+      <a href="#" class="go">Open</a>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="how-inner">
+    <h2>Three steps, no account required to browse</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="num">One</span>
+        <h3>Say what you're making</h3>
+        <p>A podcast, a product demo, a newsletter — the hub narrows to tools built for that format.</p>
+      </div>
+      <div class="step">
+        <span class="num">Two</span>
+        <h3>Compare on real use</h3>
+        <p>Every listing shows what it's actually good at, its limits, and pricing, written by creators who tried it.</p>
+      </div>
+      <div class="step">
+        <span class="num">Three</span>
+        <h3>Open it and get to work</h3>
+        <p>Click through to the tool. No detours, no affiliate maze.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="voices" id="voices">
+  <div class="section-head">
+    <h2>What creators are saying</h2>
+  </div>
+  <div class="voice-grid">
+    <div class="voice">
+      <p class="quote">I stopped bookmarking tools and forgetting they existed. Now I just check the hub before I start editing.</p>
+      <div class="who">Priya N. — video essayist, 210K subscribers</div>
+    </div>
+    <div class="voice">
+      <p class="quote">The reviews are written by people who actually hit deadlines with these tools, which is rare.</p>
+      <div class="who">Marcus T. — podcast producer</div>
+    </div>
+    <div class="voice">
+      <p class="quote">Found my thumbnail tool and my caption tool in the same afternoon. Both are still in my rotation months later.</p>
+      <div class="who">Elena R. — cooking channel, independent</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Your next tool is one search away.</h2>
+  <div class="cta-actions">
+    <a href="#bench" class="btn btn-primary">Browse the hub</a>
+    <a href="#" class="btn btn-secondary">Submit a tool</a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <span>AI Creator Hub</span>
+    <div>
+      <a href="#">About</a>
+      <a href="#">Submit a tool</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
