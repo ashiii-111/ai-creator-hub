@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creator Hub — the workbench for AI-made work</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1C1B1A;
+    --paper: #FAF6EE;
+    --paper-dim: #F1EBDD;
+    --orange: #E8542A;
+    --moss: #3D6B5C;
+    --stone: #C9C2B4;
+    --stone-line: #DDD6C7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.08;
+  }
+
+  /* ---------- Header ---------- */
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(250, 246, 238, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--stone-line);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+  }
+
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .logo-mark {
+    width: 10px;
+    height: 10px;
+    background: var(--orange);
+    border-radius: 2px;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    font-size: 14.5px;
+    font-weight: 500;
+  }
+
+  .nav-links a {
+    color: #52504B;
+    transition: color 0.15s ease;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  .nav-cta {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+  }
+  .nav-cta:hover { background: var(--orange); }
+
+  .menu-toggle { display: none; }
+
+  /* ---------- Hero ---------- */
+
+  .hero {
+    padding: 88px 0 96px;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(38px, 4.6vw, 60px);
+    max-width: 12.5ch;
+  }
+
+  .hero-copy p {
+    margin-top: 22px;
+    font-size: 18px;
+    max-width: 42ch;
+    color: #4A4842;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--orange);
+    color: var(--paper);
+    padding: 14px 26px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .btn-primary:hover { transform: translateY(-2px); }
+
+  .btn-secondary {
+    padding: 14px 22px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 15px;
+    border: 1.5px solid var(--ink);
+    background: transparent;
+    cursor: pointer;
+  }
+  .btn-secondary:hover { background: var(--ink); color: var(--paper); }
+
+  .hero-note {
+    margin-top: 20px;
+    font-size: 13.5px;
+    color: #8A8578;
+  }
+
+  /* ---------- Hero device: live tool strip ---------- */
+
+  .device {
+    background: var(--ink);
+    border-radius: 10px;
+    padding: 22px;
+    color: var(--paper);
+    box-shadow: 0 24px 60px -20px rgba(28,27,26,0.35);
+  }
+
+  .device-bar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .device-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #55534D;
+  }
+
+  .device-field {
+    background: #2A2926;
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #C9C2B4;
+    border: 1px solid #3A3934;
+  }
+
+  .device-caret {
+    display: inline-block;
+    width: 7px; height: 15px;
+    background: var(--orange);
+    vertical-align: middle;
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .device-output {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .device-thumb {
+    aspect-ratio: 4/3;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #383630, #23221F);
+    border: 1px solid #3A3934;
+    position: relative;
+    overflow: hidden;
+  }
+  .device-thumb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 40%, rgba(232,84,42,0.18) 50%, transparent 60%);
+  }
+
+  .device-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    font-size: 12.5px;
+    color: #9A9689;
+    font-weight: 500;
+  }
+  .device-meta span:first-child { color: var(--orange); }
+
+  /* ---------- Trust strip ---------- */
+
+  .trust {
+    border-top: 1px solid var(--stone-line);
+    border-bottom: 1px solid var(--stone-line);
+    padding: 26px 0;
+  }
+  .trust .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+  .trust-label {
+    font-size: 13.5px;
+    color: #8A8578;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .trust-logos {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #B4AE9F;
+  }
+
+  /* ---------- Toolbench section ---------- */
+
+  .section {
+    padding: 100px 0;
+  }
+
+  .section-head {
+    max-width: 56ch;
+    margin-bottom: 56px;
+  }
+  .section-head h2 {
+    font-size: clamp(28px, 3.2vw, 38px);
+  }
+  .section-head p {
+    margin-top: 14px;
+    font-size: 16.5px;
+    color: #4A4842;
+  }
+
+  .bench {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--stone-line);
+    border: 1px solid var(--stone-line);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .bench-item {
+    background: var(--paper);
+    padding: 34px 30px;
+  }
+
+  .bench-item:nth-child(2) {
+    background: var(--paper-dim);
+  }
+
+  .bench-num {
+    font-family: 'Fraunces', serif;
+    font-size: 13px;
+    color: var(--orange);
+    font-weight: 600;
+  }
+
+  .bench-item h3 {
+    font-size: 20px;
+    margin-top: 12px;
+    font-weight: 600;
+  }
+
+  .bench-item p {
+    margin-top: 10px;
+    font-size: 14.5px;
+    color: #55524B;
+  }
+
+  /* ---------- Workflow (asymmetric) ---------- */
+
+  .flow {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .flow-steps {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .flow-step {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 18px;
+    padding: 26px 0;
+    border-top: 1px solid var(--stone-line);
+  }
+  .flow-step:last-child { border-bottom: 1px solid var(--stone-line); }
+
+  .flow-index {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--stone);
+  }
+
+  .flow-step h3 {
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .flow-step p {
+    margin-top: 6px;
+    font-size: 14.5px;
+    color: #55524B;
+    max-width: 40ch;
+  }
+
+  .flow-visual {
+    background: var(--moss);
+    border-radius: 10px;
+    padding: 40px;
+    color: var(--paper);
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .flow-visual h3 {
+    font-size: 24px;
+    max-width: 16ch;
+    color: var(--paper);
+  }
+
+  .flow-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .flow-tag {
+    background: rgba(250,246,238,0.14);
+    border: 1px solid rgba(250,246,238,0.3);
+    padding: 7px 13px;
+    border-radius: 20px;
+    font-size: 13px;
+  }
+
+  .flow-quote {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15.5px;
+    color: rgba(250,246,238,0.85);
+    border-top: 1px solid rgba(250,246,238,0.25);
+    padding-top: 20px;
+  }
+
+  /* ---------- Pricing ---------- */
+
+  .price-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .price-card {
+    border: 1.5px solid var(--stone-line);
+    border-radius: 10px;
+    padding: 32px 28px;
+    background: var(--paper);
+  }
+
+  .price-card.featured {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+  }
+
+  .price-tier {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--orange);
+  }
+
+  .price-amount {
+    font-family: 'Fraunces', serif;
+    font-size: 40px;
+    margin-top: 10px;
+    font-weight: 600;
+  }
+  .price-amount span {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.6;
+  }
+
+  .price-desc {
+    font-size: 14px;
+    margin-top: 8px;
+    opacity: 0.75;
+  }
+
+  .price-list {
+    list-style: none;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 14.5px;
+  }
+  .price-list li {
+    display: flex;
+    gap: 10px;
+  }
+  .price-list li::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--orange);
+    margin-top: 8px;
+    flex-shrink: 0;
+  }
+
+  .price-card .btn-secondary,
+  .price-card .btn-primary {
+    width: 100%;
+    margin-top: 26px;
+  }
+  .price-card.featured .btn-secondary {
+    border-color: var(--paper);
+    color: var(--paper);
+  }
+  .price-card.featured .btn-secondary:hover {
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  /* ---------- CTA ---------- */
+
+  .cta {
+    background: var(--orange);
+    border-radius: 12px;
+    padding: 64px 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+    color: var(--paper);
+  }
+  .cta h2 {
+    font-size: clamp(26px, 3vw, 34px);
+    color: var(--paper);
+    max-width: 18ch;
+  }
+  .cta .btn-secondary {
+    border-color: var(--paper);
+    color: var(--paper);
+    background: transparent;
+  }
+  .cta .btn-secondary:hover {
+    background: var(--paper);
+    color: var(--orange);
+  }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    border-top: 1px solid var(--stone-line);
+    padding: 48px 0 40px;
+  }
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+  .footer-cols {
+    display: flex;
+    gap: 64px;
+    flex-wrap: wrap;
+  }
+  .footer-col h4 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: #8A8578;
+  }
+  .footer-col a {
+    display: block;
+    font-size: 14px;
+    color: #52504B;
+    margin-bottom: 10px;
+  }
+  .footer-col a:hover { color: var(--orange); }
+  .footer-bottom {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--stone-line);
+    font-size: 13px;
+    color: #8A8578;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 880px) {
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 56px 0 64px; }
+    .bench { grid-template-columns: 1fr; }
+    .flow { grid-template-columns: 1fr; }
+    .price-grid { grid-template-columns: 1fr; }
+    .cta { padding: 44px 28px; flex-direction: column; align-items: flex-start; }
+    .section { padding: 64px 0; }
+    .footer-top { flex-direction: column; }
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo"><span class="logo-mark"></span>Creator Hub</div>
+    <nav class="nav-links">
+      <a href="#tools">Tools</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#pricing">Pricing</a>
+      <a href="blog/index.html">Blog</a>
+    </nav>
+    <button class="nav-cta">Start free</button>
+  </div>
+</header>
+
+<section class="wrap hero">
+  <div class="hero-copy">
+    <h1>The workbench where your AI tools finally live together</h1>
+    <p>Stop juggling ten tabs to make one piece of content. Write the prompt once, generate across models, and keep every draft, asset, and version in one place built for people who make things for a living.</p>
+    <div class="hero-actions">
+      <button class="btn-primary">Start free</button>
+      <button class="btn-secondary">Watch a 2-minute tour</button>
+    </div>
+    <p class="hero-note">No credit card. Free plan covers 50 generations a month.</p>
+  </div>
+
+  <div class="device">
+    <div class="device-bar">
+      <span class="device-dot"></span><span class="device-dot"></span><span class="device-dot"></span>
+    </div>
+    <div class="device-field">
+      moody editorial photo, brutalist architecture, storm light<span class="device-caret"></span>
+    </div>
+    <div class="device-output">
+      <div class="device-thumb"></div>
+      <div class="device-thumb"></div>
+      <div class="device-thumb"></div>
+    </div>
+    <div class="device-meta">
+      <span>● generated in 4.2s</span>
+      <span>3 of 3 kept</span>
+    </div>
+  </div>
+</section>
+
+<div class="trust">
+  <div class="wrap">
+    <span class="trust-label">Where working creators generate, edit, and publish</span>
+    <div class="trust-logos">
+      <span>Northlight Studio</span>
+      <span>Rundown</span>
+      <span>Palefire</span>
+      <span>Kioku</span>
+    </div>
+  </div>
+</div>
+
+<section class="section wrap" id="tools">
+  <div class="section-head">
+    <h2>One bench, every tool you reach for</h2>
+    <p>Image, video, voice, and copy generation sit side by side, so a single project can pull from all of them without you re-uploading a single reference file.</p>
+  </div>
+  <div class="bench">
+    <div class="bench-item">
+      <div class="bench-num">01</div>
+      <h3>Image & video</h3>
+      <p>Generate stills and motion from the same prompt and reference set, then push either into your timeline.</p>
+    </div>
+    <div class="bench-item">
+      <div class="bench-num">02</div>
+      <h3>Voice & script</h3>
+      <p>Draft narration, clone an approved voice, and sync it to your cut without leaving the project.</p>
+    </div>
+    <div class="bench-item">
+      <div class="bench-num">03</div>
+      <h3>Version history</h3>
+      <p>Every generation is kept and tagged automatically, so you can go back to draft four without hunting through folders.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" id="workflow">
+  <div class="section-head">
+    <h2>Built around how a project actually moves</h2>
+    <p>Not a chatbot window. A project space that follows your work from first draft to the file you hand off.</p>
+  </div>
+  <div class="flow">
+    <div class="flow-steps">
+      <div class="flow-step">
+        <span class="flow-index">a</span>
+        <div>
+          <h3>Set the brief once</h3>
+          <p>Drop in references, brand voice, and constraints. Every tool in the project reads from it.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <span class="flow-index">b</span>
+        <div>
+          <h3>Generate in parallel</h3>
+          <p>Run the same brief across models to compare output side by side before you commit.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <span class="flow-index">c</span>
+        <div>
+          <h3>Hand off clean</h3>
+          <p>Export with source prompts and licensing notes attached, ready for a client or a publish queue.</p>
+        </div>
+      </div>
+    </div>
+    <div class="flow-visual">
+      <div>
+        <h3>Six-person studio, one shared bench</h3>
+        <div class="flow-tags">
+          <span class="flow-tag">Shared briefs</span>
+          <span class="flow-tag">Comments on any draft</span>
+          <span class="flow-tag">Role-based access</span>
+          <span class="flow-tag">Client review links</span>
+        </div>
+      </div>
+      <p class="flow-quote">"We used to lose half a day re-explaining a brief to whichever tool was open. Now it's set once and everyone pulls from it."</p>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" id="pricing">
+  <div class="section-head">
+    <h2>Pricing that scales with output, not seats</h2>
+    <p>Start free, upgrade when your generation volume grows. Every plan includes full version history.</p>
+  </div>
+  <div class="price-grid">
+    <div class="price-card">
+      <div class="price-tier">Starter</div>
+      <div class="price-amount">$0<span> /month</span></div>
+      <p class="price-desc">For testing the bench before you commit a project to it.</p>
+      <ul class="price-list">
+        <li>50 generations / month</li>
+        <li>2 active projects</li>
+        <li>Image & copy tools</li>
+        <li>7-day version history</li>
+      </ul>
+      <button class="btn-secondary">Start free</button>
+    </div>
+    <div class="price-card featured">
+      <div class="price-tier">Studio</div>
+      <div class="price-amount">$32<span> /month</span></div>
+      <p class="price-desc">For freelancers and small teams shipping weekly.</p>
+      <ul class="price-list">
+        <li>Unlimited generations</li>
+        <li>Unlimited projects</li>
+        <li>All tools, incl. voice & video</li>
+        <li>Full version history</li>
+        <li>3 seats included</li>
+      </ul>
+      <button class="btn-primary">Start free trial</button>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Agency</div>
+      <div class="price-amount">$88<span> /month</span></div>
+      <p class="price-desc">For studios running multiple client accounts at once.</p>
+      <ul class="price-list">
+        <li>Everything in Studio</li>
+        <li>Client review links</li>
+        <li>Role-based permissions</li>
+        <li>10 seats included</li>
+      </ul>
+      <button class="btn-secondary">Talk to us</button>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" style="padding-bottom: 100px;">
+  <div class="cta">
+    <h2>Bring your tools to one bench</h2>
+    <button class="btn-secondary">Start free — no card needed</button>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="logo"><span class="logo-mark"></span>Creator Hub</div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="#tools">Tools</a>
+          <a href="#workflow">Workflow</a>
+          <a href="#pricing">Pricing</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About</a>
+          <a href="#">Careers</a>
+          <a href="#">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="#">Guides</a>
+          <a href="#">Changelog</a>
+          <a href="#">Support</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Creator Hub</span>
+      <span>Privacy · Terms</span>
+    </div>
+  </div>
+</footer>
+
+<script async="async" data-cfasync="false" src="https://pl31214780.profitableratecpmnetwork.com/db70816e559c05b67ce8b9e75589d4ba/invoke.js"></script>
+<div id="container-db70816e559c05b67ce8b9e75589d4ba"></div>
+
+</body>
+</html>
