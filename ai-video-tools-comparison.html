@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI video generation, compared honestly — Creator Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1C1B1A; --paper: #FAF6EE; --paper-dim: #F1EBDD;
+    --orange: #E8542A; --moss: #3D6B5C; --stone: #C9C2B4; --stone-line: #DDD6C7;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.65; font-size:17px; -webkit-font-smoothing:antialiased; }
+  a { color:var(--orange); }
+  h1,h2,h3 { font-family:'Fraunces',serif; font-weight:600; letter-spacing:-0.01em; line-height:1.15; }
+  .wrap { max-width:680px; margin:0 auto; padding:0 24px; }
+  header { position:sticky; top:0; background:rgba(250,246,238,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--stone-line); z-index:10; }
+  .nav { display:flex; align-items:center; justify-content:space-between; padding:18px 0; max-width:680px; margin:0 auto; padding-left:24px; padding-right:24px; }
+  .logo { font-family:'Fraunces',serif; font-weight:600; font-size:19px; display:flex; align-items:center; gap:8px; }
+  .logo-mark { width:9px; height:9px; background:var(--orange); border-radius:2px; transform:rotate(45deg); }
+  .nav a.back { font-size:14px; font-weight:500; color:#52504B; text-decoration:none; }
+  article { padding:48px 0 24px; }
+  .kicker { font-size:13px; font-weight:600; color:var(--orange); }
+  h1.title { font-size:clamp(30px,5vw,42px); margin-top:10px; }
+  .byline { margin-top:16px; font-size:14px; color:#8A8578; }
+  .lede { margin-top:24px; font-size:19px; color:#3A3833; font-family:'Fraunces',serif; font-style:italic; font-weight:400; }
+  h2 { font-size:24px; margin-top:40px; margin-bottom:14px; }
+  p { margin-bottom:16px; color:#2A2926; }
+  table { width:100%; border-collapse:collapse; margin:24px 0; font-size:15px; }
+  th, td { text-align:left; padding:12px 10px; border-bottom:1px solid var(--stone-line); }
+  th { font-family:'Fraunces',serif; font-weight:600; color:var(--ink); }
+  td { color:#4A4842; }
+  .cta-box { background:var(--ink); color:var(--paper); border-radius:10px; padding:30px 28px; margin:40px 0; }
+  .cta-box h3 { color:var(--paper); font-size:20px; }
+  .cta-box p { color:#C9C2B4; margin-top:8px; margin-bottom:18px; }
+  .cta-box a.btn { display:inline-block; background:var(--orange); color:var(--paper); padding:11px 20px; border-radius:4px; font-weight:600; font-size:14px; text-decoration:none; }
+  footer { border-top:1px solid var(--stone-line); padding:32px 0; font-size:13px; color:#8A8578; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo"><span class="logo-mark"></span>Creator Hub</div>
+    <a class="back" href="index.html">← All articles</a>
+  </div>
+</header>
+
+<article class="wrap">
+  <div class="kicker">Tools</div>
+  <h1 class="title">AI video generation, compared honestly</h1>
+  <div class="byline">8 min read</div>
+  <p class="lede">Motion is the hardest thing AI generation still gets wrong. Here's where each major tool actually stands once you push past the highlight reel.</p>
+
+  <p>Video generation gets the loudest launch demos and the quietest follow-up conversations about what breaks in production. Hands still warp mid-gesture, camera moves drift, and a character's face can shift subtly between cuts. None of that means the category isn't useful — it means you need to know exactly where each tool's ceiling is before you build a deliverable around it.</p>
+
+  <h2>What "good" currently means</h2>
+  <p>As of this year, no tool reliably holds a consistent character across more than a few seconds of complex motion. The realistic bar to set for a client is short, well-composed clips — 3 to 6 seconds — stitched together in an edit, rather than one long continuous shot. Set that expectation early and the final product reads as intentional rather than compromised.</p>
+
+  <h2>Rough comparison for working creators</h2>
+  <table>
+    <tr><th>Priority</th><th>Where it currently holds up</th></tr>
+    <tr><td>Cinematic camera movement</td><td>Strongest on smooth pans and dolly-style moves; static or slow-motion shots</td></tr>
+    <tr><td>Character consistency</td><td>Best within a single clip; degrades across separate generations</td></tr>
+    <tr><td>Text-to-video speed</td><td>Fastest options trade fidelity for iteration volume — good for storyboarding</td></tr>
+    <tr><td>Cost per finished second</td><td>Still the biggest budget variable — price per generation, not per tool license</td></tr>
+  </table>
+
+  <h2>A workflow that actually ships</h2>
+  <p>The creators getting reliable results treat AI video as one stage in an edit, not the whole pipeline: generate short segments, cut around the weak frames, and lean on sound design and pacing to smooth over the motion artifacts a viewer would otherwise notice. Music and sound effects do a disproportionate amount of work in making generated video feel finished.</p>
+
+  <h2>Where to spend your generation budget</h2>
+  <p>Budget more attempts for the shots your project actually needs to hold up under scrutiny — a product hero shot, a close-up on a face — and fewer for background or transition footage where minor imperfections are far less noticeable. Treating every shot with equal generation budget is the most common way projects run over time and cost.</p>
+
+  <div class="cta-box">
+    <h3>Storyboard, generate, and edit in one place</h3>
+    <p>Keep your script, reference stills, and video generations in a single project so nothing gets lost between tools.</p>
+    <a class="btn" href="../index.html#workflow">See the workflow</a>
+  </div>
+
+  <p>This category will keep moving fast. The workflow habit that survives every model update is the same one that works in traditional video production: shoot more than you need, and be decisive about what actually makes the cut.</p>
+</article>
+
+<footer>
+  <div class="wrap">© 2026 Creator Hub</div>
+</footer>
+
+<script async="async" data-cfasync="false" src="https://pl31214780.profitableratecpmnetwork.com/db70816e559c05b67ce8b9e75589d4ba/invoke.js"></script>
+<div id="container-db70816e559c05b67ce8b9e75589d4ba"></div>
+
+</body>
+</html>
